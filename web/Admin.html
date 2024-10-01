@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Menu</title>
+        <link rel="stylesheet" href="abc.css">
+        <style>
+            /* Improved container styling */
+            .container {
+                width: 800px;
+                margin: 50px auto;
+                text-align: center;
+                border: 2px solid #ddd;
+                padding: 20px;
+                border-radius: 15px; /* Increased border radius */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+                background: linear-gradient(to bottom right, #f0f0f0, #dcdcdc); /* Gradient background */
+            }
+
+            /* Admin image styling */
+            .admin-image {
+                text-align: center;
+                margin: 20px auto;
+            }
+
+            .admin-image img {
+                width: 100px; /* Adjusted size for better balance */
+                height: 100px;
+                border-radius: 50%; /* Circular image */
+                border: 3px solid #007bff; /* Blue border */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .admin-image h1 {
+                font-size: 36px; /* Larger font size */
+                margin-top: 10px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            /* Improved image grid layout */
+            .image-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around; /* More balanced spacing */
+                gap: 30px; /* Reduced gap for better alignment */
+            }
+
+            .image-grid .image-item {
+                width: 180px; /* Consistent block size */
+                text-align: center;
+                transition: transform 0.2s ease; /* Smooth scaling transition */
+            }
+
+            .image-grid img {
+                width: 100px;
+                height: 100px;
+                border-radius: 10px; /* Rounded corners */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .image-grid span {
+                display: block;
+                margin-top: 10px;
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                transition: color 0.3s ease;
+            }
+
+            /* Hover effects */
+            .image-grid img:hover {
+                transform: scale(1.1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            .image-grid span:hover {
+                color: #007bff; /* Change color to match the border */
+            }
+
+            /* Remove underline from links */
+            .image-grid a {
+                text-decoration: none;
+                color: inherit;
+            }
+             .image-grid a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation Menu -->
+        <div id="mymenu">
+            <ul>
+                <li class="left-item">Student Management System</li>
+                <li>Home</li>
+                <li>Admin Dashboard</li>
+                <li><a href="Logout">LogOut</a></li>
+            </ul>
+        </div>
+
+        <!-- Admin Image outside the box -->
+        <div class="admin-image">
+            <img src="image/Admin.png" alt="Admin">
+            <h1><b>Admin</b></h1>
+        </div>
+
+        <!-- Admin-specific content inside the box -->
+        <div class="container">
+            <div class="image-grid">
+                <!-- First row -->
+                <div class="image-item">
+                    <a href="InsertAdmin.jsp">
+                        <img src="image/Insert2.png" alt="Insert">
+                        <span>Insert</span>
+                    </a>
+                </div>
+                <div class="image-item">
+                    <a href="Search.jsp">
+                        <img src="image/Search2.png" alt="Search">
+                        <span>Search</span>
+                    </a>
+                </div>
+                <div class="image-item">
+                    <a href="ShowALL.jsp">
+                        <img src="image/ShowALL.png" alt="Show All">
+                        <span>Show All</span>
+                    </a>
+                </div>
+                
+                <!-- Second row -->
+                <div class="image-item">
+                    <a href="Update.jsp">
+                        <img src="image/Update2.png" alt="Update">
+                        <span>Update</span>
+                    </a>
+                </div>
+                <div class="image-item">
+                    <a href="Delete.jsp">
+                        <img src="image/Delete.png" alt="Delete">
+                        <span>Delete</span>
+                    </a>
+                </div>
+                <div class="image-item">
+                    <a href="Logout">
+                        <img src="image/Logout2.png" alt="Logout">
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
