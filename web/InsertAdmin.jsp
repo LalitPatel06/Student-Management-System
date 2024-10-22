@@ -92,10 +92,6 @@
         <ul>
             <li class="left-item">Student Data Insert</li>
             <li><a href="Admin.html">Home</a></li>
-            <li><a href="Search.html">Search</a></li>
-            <li><a href="ShowALL.html">View Student</a></li>
-            <li><a href="Update.html">Update</a></li>
-            <li><a href="Delete.html">Delete</a></li>
             <li><a href="Logout">LogOut</a></li>
         </ul>
     </div>

@@ -105,7 +105,6 @@
         <ul>
             <li class="left-item">Insert Student Marks</li>
             <li><a href="Teacher.html">Home</a></li>
-            <li><a href="SearchMarks.html">Search Marks</a></li>
             <li><a href="Logout">LogOut</a></li>
         </ul>
     </div>

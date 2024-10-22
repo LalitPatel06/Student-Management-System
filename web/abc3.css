@@ -13,7 +13,7 @@ body {
 }
 #mymenu {
     font-family: Clarendon, serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     color: gold;
     background:#333;
@@ -89,7 +89,7 @@ table {
     width: 100%;
     /*margin-top: 10px;  Space above the table */
     border-collapse: collapse; /* Remove space between table cells */
-   background-color:white;
+  // background-color:white;
 }
 table td 
 {
@@ -175,3 +175,45 @@ select {
     border: 2px solid blue; /* Change border color */
 
 }
+
+ /*Search*/
+    
+      #searchdata {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border:2px solid black;
+        }
+        #searchdata th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+       #searchdata th {
+            background-color:lightskyblue;
+            color:yellow;
+            border-bottom:1px solid black;
+        }
+        #searchdata tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .update-btn {
+            background-color:orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        /* Hover effect for update button */
+        .update-btn:hover {
+            background-color: darkorange;
+        }
+        

@@ -1,7 +1,7 @@
 <%@ page import="java.sql.*" %>
 <html>
 <head>
-    <title>Search Page</title>
+    <title>Delete Page</title>
     <link rel="stylesheet" href="abc3.css">
     <style>
         #searchdata {
@@ -101,9 +101,95 @@
             width: 20px;
             height: 20px;
         }
+        
+         /* CSS for delete button */
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect for delete button */
+        .delete-btn:hover {
+            background-color: darkred;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
+        
+      function confirmDelete(rollNo, buttonName) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to delete the data
+            $.ajax({
+                url: 'DeleteServlet',
+                type: 'GET',
+                data: { rollNo: rollNo, [buttonName]: 'Delete' },  // Pass roll number and button name
+                success: function(response) {
+                    // Based on the response, show the success or failure SweetAlert
+                    const urlParams = new URLSearchParams(response);  // Parse the query string in the response
+                    const status = urlParams.get('status');
+                    const entity = urlParams.get('entity');
+
+                    if (status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'Student ' + (entity === 'data' ? 'data' : 'marks') + ' has been deleted successfully.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = 'Delete.jsp';  // Redirect after showing the alert
+                        });
+                    } else if (status === 'failure') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed!',
+                            text: 'No student found with the given Roll No.',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (status === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'An error occurred while deleting the record.',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (status === 'invalid') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Invalid!',
+                            text: 'Please enter a valid Roll No.',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        }
+    });
+}
+
+
+
+        
         function showAlert(icon, title, text) {
             Swal.fire({
                 icon: icon,
@@ -119,14 +205,12 @@
     <div id="mymenu">
         <% String userRole = (String) session.getAttribute("role"); %>
         <ul>
-        <li class="left-item"><span class="heading-text">Search Student Data</span></li>
+        <li class="left-item"><span class="heading-text">Delete Students</span></li>
 
         <% if ("Admin".equals(userRole)) { %>
             <li class="right-item"><a href="Admin.html">Home</a></li>
         <% } else if ("Teacher".equals(userRole)) { %>
             <li class="right-item"><a href="Teacher.html">Home</a></li>
-        <% } else if ("Student".equals(userRole)) { %>
-            <li class="right-item"><a href="Student.html">Home</a></li>
         <% } %>
 
         <li class="right-item"><a href="Logout">Logout</a></li>
@@ -135,7 +219,7 @@
 
     <div id="mytable">
         <center>
-            <form action="Search.jsp" method="get">
+            <form action="Delete.jsp" method="get">
 <label style="margin-top: 30px; font-weight: bold; text-shadow: 1px 1px 1px gray; color: blue; font-size: 40px;">Search Marks</label>
                  <div class="search-container">
         <div class="search-box">
@@ -176,23 +260,23 @@
     <%
         String rollNo = request.getParameter("u1"); // Get the input value
         String dataType = request.getParameter("dataType"); // Get the selected data type
-        
-        if (rollNo != null && !rollNo.trim().isEmpty()) {
+          String studentClass="";
+        if (rollNo != null && !rollNo.trim().isEmpty()){
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql:///lalit4?useSSL=false", "root", "Root");
                 Statement st = con.createStatement();
 
+                        if ("Admin".equals(userRole)&&"studentData".equals(dataType)){
                 // Get student details
                 String studentQuery = "SELECT * FROM studentsdata WHERE roll_no='" + rollNo + "'";
                 ResultSet studentRs = st.executeQuery(studentQuery);
 
                 if (studentRs.next()) {
-                    String studentClass = studentRs.getString("class");
+                     studentClass = studentRs.getString("class");
 
-                    if ("Admin".equals(userRole)) {
+                    
                         // Handle Admin search for both data types
-                        if ("studentData".equals(dataType)) {
                             // Display student details
                             %>
                             <div>
@@ -227,16 +311,33 @@
                                             <th >Admission Date :</th>
                                             <td><%= studentRs.getString("admission_date") %></td>
                                         </tr>
+                      
                                     </table>
-                                </center>
+        <div style="text-align: center; margin-top: 15px;">
+<!-- For deleting student data -->
+<input type="button" value="Delete" name="b1" class="delete-btn" 
+    onclick="confirmDelete('<%= studentRs.getString("roll_no") %>', 'b1')">
+</div>     
+                            </center>
                             </div>
                             <%
-                        } else if ("studentMarks".equals(dataType)) {
+                        } 
+                         else {
+                    %>
+                    <script>
+                        showAlert('error', 'Oops...', 'Student not found with the given Roll No.');
+                    </script>
+                    <%
+                }
+                        }
+                    
+                    if ("studentMarks".equals(dataType) || "Teacher".equals(userRole) ) {
                             // Query for student marks depending on class (10th or 12th)
                             String marksQuery = "SELECT * FROM studentsmarks WHERE roll_no='" + rollNo + "'";
                             ResultSet marksRs = st.executeQuery(marksQuery);
 
                             if (marksRs.next()) {
+                                              studentClass = marksRs.getString("class");
                                 %>
                                 <div>
                                     <center>
@@ -257,7 +358,7 @@
                              </tr>
                                             <%
                                                 // Dynamically display subjects based on class
-                                                if ("10th".equals(studentClass)) {
+                                                if ("10th".equals(studentClass) || "10".equals(studentClass)) {
                                                     %>
                                                     <tr><th>English:</th><td><%= marksRs.getString("english_marks") %></td></tr>
                                                     <tr><th>Hindi:</th><td><%= marksRs.getString("hindi_marks") %></td></tr>
@@ -265,7 +366,7 @@
                                                     <tr><th>Science:</th><td><%= marksRs.getString("science_marks") %></td></tr>
                                                     <tr><th>Social Science:</th><td><%= marksRs.getString("social_science_marks") %></td></tr>
                                                     <%
-                                                } else if ("12th".equals(studentClass)) {
+                                                } else if ("12th".equals(studentClass)||"12".equals(studentClass)) {
                                                     %>
                                                     <tr><th>English:</th><td><%= marksRs.getString("english_marks") %></td></tr>
                                                     <tr><th>Maths:</th><td><%= marksRs.getString("math_marks") %></td></tr>
@@ -276,90 +377,27 @@
                                                 }
                                             %>
                                         </table>
+        <div style="text-align: center; margin-top: 15px;">
+    <!-- For deleting student marks -->
+<input type="button" value="Delete" name="b2" class="delete-btn" 
+    onclick="confirmDelete('<%= marksRs.getString("roll_no") %>', 'b2')">
+</div>                          
+
                                     </center>
                                 </div>
                                 <%
-                            } else {
+                            } 
+                    else {
                                 %>
                                 <script>
                                     showAlert('error', 'Oops...', 'Marks not found for the given Roll No.');
                                 </script>
                                 <%
                             }
-                        }
-                    } else if ("Teacher".equals(userRole) || "Student".equals(userRole)) {
-                        // Allow only marks viewing
-                        String marksQuery = "SELECT * FROM studentsmarks WHERE roll_no='" + rollNo + "'";
-                        ResultSet marksRs = st.executeQuery(marksQuery);
-
-                        if (marksRs.next()) {
-                            %>
-                            <div>
-                                <center>
-                                    <table id="searchdata" >
-                                        <caption>Student Marks</caption>
-                                        <tr>
-                                            <th>Roll No :</th>
-                                            <td><%= marksRs.getString("roll_no") %></td>
-                                        </tr>
-                                        <tr>
-                                            <th >Name :</th>
-                                            <td><%= marksRs.getString("student_name") %></td></tr>
-                                        <tr>
-    <tr>
-    <th colspan="2" style="text-align: center; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); background-color: lightpink; color: darkblue;">
-        Subject Marks
-    </th>
-</tr>
-
-</tr>
-
-                                        <%
-                                            // Dynamically display subjects based on class
-                                            if ("10th".equals(studentClass)) {
-                                                %>
-                                                <tr><th>English:</th><td><%= marksRs.getString("english_marks") %></td></tr>
-                                                <tr><th>Hindi:</th><td><%= marksRs.getString("hindi_marks") %></td></tr>
-                                                <tr><th>Maths:</th><td><%= marksRs.getString("math_marks") %></td></tr>
-                                                <tr><th>Science:</th><td><%= marksRs.getString("science_marks") %></td></tr>
-                                                <tr><th>Social Science:</th><td><%= marksRs.getString("social_science_marks") %></td></tr>
-                                                <%
-                                            } else if ("12th".equals(studentClass)) {
-                                                %>
-                                                <tr><th>English:</th><td><%= marksRs.getString("english_marks") %></td></tr>
-                                                <tr><th>Maths:</th><td><%= marksRs.getString("math_marks") %></td></tr>
-                                                <tr><th>Physics:</th><td><%= marksRs.getString("physics_marks") %></td></tr>
-                                                <tr><th>Chemistry:</th><td><%= marksRs.getString("chemistry_marks") %></td></tr>
-                                                <tr><th>Physical Education:</th><td><%= marksRs.getString("physical_education_marks") %></td></tr>
-                                                <%
-                                            }
-                                        %>
-                                    </table>
-                                </center>
-                            </div>
-                            <%
-                        } else {
-                            %>
-                            <script>
-                                showAlert('error', 'Oops...', 'Marks not found for the given Roll No.');
-                            </script>
-                            <%
-                        }
-                    } else {
-                        %>
-                        <script>
-                            showAlert('error', 'Oops...', 'Invalid Role!');
-                        </script>
-                        <%
                     }
-                } else {
-                    %>
-                    <script>
-                        showAlert('error', 'Oops...', 'Student not found with the given Roll No.');
-                    </script>
-                    <%
-                }
-            } catch (Exception e) {
+                    }
+                
+             catch (Exception e) {
                 e.printStackTrace();
                 %>
                 <script>

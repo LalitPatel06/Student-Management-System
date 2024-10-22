@@ -15,6 +15,11 @@ public class Registration extends HttpServlet {
         String contact = request.getParameter("contact").trim();
         String password = request.getParameter("password").trim();  /*admin password */
         String role = request.getParameter("role").trim();
+        String employeeId ="";
+        if (role.equals("Teacher"))
+        {
+              employeeId = request.getParameter("employeeId").trim();
+        }
         
         Connection con = null;
         Statement stmt = null;
@@ -28,12 +33,13 @@ public class Registration extends HttpServlet {
             stmt = con.createStatement();
 
             // Insert into RegisAdmin table for Admin role
-            String query = "INSERT INTO regisadmin (username, email, contact, password, role) VALUES ('"
+            String query = "INSERT INTO regisadmin (username, email, contact, password, role, employeeId) VALUES ('"
                     + username + "', '"
                     + email + "', '"
                     + contact + "', '"
                     + password + "', '"
-                    + role + "')";
+                    + role + "', '"
+                    + employeeId +"')";
             int result = stmt.executeUpdate(query);
 
             // Insert role-specific data
@@ -43,7 +49,6 @@ public class Registration extends HttpServlet {
                 response.sendRedirect("r1.html");
             } else if (role.equals("Teacher")) {
                 // Teacher-specific fields
-                String employeeId = request.getParameter("employeeId").trim();
                 String department = request.getParameter("department").trim();
                 String subject = request.getParameter("subjectTaught").trim();
                 String passwordTeacher = request.getParameter("passwordTeacher").trim();

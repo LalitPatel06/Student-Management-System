@@ -63,7 +63,7 @@
         <ul>
             <li class="left-item"><span class="heading-text">Students Data and Marks</span></li>
             <li class="right-item"><a href="Admin.html">Admin Dashboard</a></li>
-            <li class="right-item"><a href="LogoutDemo">Logout</a></li>
+            <li class="right-item"><a href="Logout">Logout</a></li>
         </ul>
     </div>
 
@@ -150,13 +150,13 @@
                         <th>Roll No</th>
                         <th>Name</th>
                         <th>Class</th>
-                        <% if (selectedClass.equals("10th")) { %>
+                        <% if (selectedClass.equals("10th")|| selectedClass.equals("10")) { %>
                             <th>English</th>
                             <th>Math</th>
                             <th>Hindi</th>
                             <th>Science</th>
                             <th>Social Science</th>
-                        <% } else if (selectedClass.equals("12th")) { %>
+                        <% } else if (selectedClass.equals("12th")||selectedClass.equals("12")) { %>
                             <th>English</th>
                             <th>Math</th>
                             <th>Physics</th>
@@ -176,13 +176,13 @@
                         <td><%= rs.getString("roll_no") %></td>
                         <td><%= rs.getString("student_name") %></td>
                         <td><%= rs.getString("class") %></td>
-                        <% if (selectedClass.equals("10th")) { %>
+                        <% if (selectedClass.equals("10th") || selectedClass.equals("10")) { %>
                             <td><%= rs.getInt("english_marks") %></td>
                             <td><%= rs.getInt("math_marks") %></td>
                             <td><%= rs.getInt("hindi_marks") %></td>
                             <td><%= rs.getInt("science_marks") %></td>
                             <td><%= rs.getInt("social_science_marks") %></td>
-                        <% } else if (selectedClass.equals("12th")) { %>
+                        <% } else if (selectedClass.equals("12th")||selectedClass.equals("12")) { %>
                             <td><%= rs.getInt("english_marks") %></td>
                             <td><%= rs.getInt("math_marks") %></td>
                             <td><%= rs.getInt("physics_marks") %></td>

@@ -25,12 +25,13 @@ public class LoginDemo extends HttpServlet {
 
             // Role-based query to the relevant table
             if (role.equals("Admin")) {
-                query = "SELECT * FROM regisadmin WHERE username=? AND password=?";
-            } else if (role.equals("Teacher")) {
-                query = "SELECT * FROM registeachers WHERE username=? AND password=?";
-            } else if (role.equals("Student")) {
-                query = "SELECT * FROM regisstudents WHERE username=? AND password=?";
-            }
+    query = "SELECT * FROM regisadmin WHERE BINARY username=? AND BINARY password=?";
+} else if (role.equals("Teacher")) {
+    query = "SELECT * FROM registeachers WHERE BINARY username=? AND BINARY password=?";
+} else if (role.equals("Student")) {
+    query = "SELECT * FROM regisstudents WHERE BINARY username=? AND BINARY password=?";
+}
+
 
             // Prepare statement to avoid SQL injection
             PreparedStatement pst = con.prepareStatement(query);
@@ -58,8 +59,10 @@ public class LoginDemo extends HttpServlet {
                     response.sendRedirect("Student.html");
                 }
             } else {
-                // Invalid login, redirect back to login page with an error
-                response.sendRedirect("Login.html?error=1");
+                // Send error message back to login page
+                request.setAttribute("errorMessage", "Incorrect username or password.");
+                RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+                rd.forward(request, response); // Forward with error message
             }
 
             con.close();
