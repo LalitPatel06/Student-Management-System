@@ -1,0 +1,332 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+/*body {
+    font-family: Arial, sans-serif;
+    background-image: url("image/Hardvar1.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}*/
+
+
+/* Menu bar styling */
+/*#mymenu {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+#mymenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+#mymenu ul li {
+    display: inline-block;
+    padding:20px;
+    margin-right: 20px;
+}
+
+#mymenu ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+#mymenu ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}*/
+
+/* External CSS file: styles.css */
+
+/* Style for the form container */
+form {
+    width: 40%; /* Adjust form width */
+    margin: 20px auto; /* Center the form */
+    background-color: #f9f9f9; /* Light background */
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    border-radius: 10px; /* Rounded corners */
+}
+
+
+/* Style for input fields and select boxes */
+input, select, textarea {
+    width: 95%; /* Full width of the form */
+    padding: 12px; /* Add padding */
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; /* Light border */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Change border color when input or select is focused */
+input:focus, select:focus, textarea:focus {
+    border: 2px solid blue;
+    outline: none;
+}
+
+/* Style for labels */
+label {
+    font-weight: bold; /* Bold text */
+    font-size: 18px; /* Set font size */
+    display: block; /* Ensure each label is on a new line */
+    margin-bottom: 5px;
+}
+
+
+#mymenu {
+    font-family: Clarendon, serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: gold;
+    background:#333;
+    text-align: right;
+    padding: 10px;
+    border-bottom: 2px solid #ff8c00; // Dark Orange 
+}
+
+#mymenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display:flex;
+     /*flex-direction:column;*/
+    justify-content:flex-end;
+}
+
+#mymenu ul li {
+    display: inline;
+    padding: 14px 20px;
+}
+/* Special class for the left-aligned item */
+        .left-item {
+            margin-right: auto; /* Push the item to the left */
+            font-size: 24px;    /* Custom font size */
+            font-weight: bold;  /* Custom font weight */
+            color: yellow;      /* Custom color */
+        }
+#mymenu ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#mymenu ul li:not(.left-item):hover {
+    
+     background:darkorange; 
+    color: white;
+}
+
+h1 {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color:purple;
+        }
+h2 {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color:purple;
+        }
+        
+
+/* Form table styling */
+#mytable {
+    margin-top: 50px;
+}
+
+form table {
+    background-color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 20px;
+    border-collapse: collapse;
+    width: 50%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form table td {
+    padding: 10px;
+}
+
+form table td input,
+form table td select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+ Style for placeholder text 
+form table td input::placeholder {
+    color: #999;
+}
+
+.A {
+    width: 450px;
+    height: 20px;
+    border-radius: 10px 5px 5px 5px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+/* Submit button styling */
+.B {
+    background-color: #4CAF50;
+    justify-content:center;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+}
+.B:hover {
+    background-color:orange;
+}
+
+/* Role-specific fieldset styling */
+#adminFields, #teacherFields, #studentFields {
+    display: none;
+}
+
+/* Transition effects */
+form table input, form table select {
+    transition: all 0.3s ease;
+}
+
+form table td input:focus, form table td select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+/* Hover effects */
+form table td input:hover, form table td select:hover {
+    border-color: #333;
+}
+
+
+
+/* Styling for div with id mytable1 */
+#mytable1 {
+    width: 600px;               /* Set a fixed width for the form */
+    margin: 120px auto;       /*     Center the form horizontally */
+    padding: 20px;               /* Add padding inside the div */
+    background-color: #f5f5f5;   /* Light background color */
+    border-radius: 8px;          /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Styling for the table inside the form */
+#mytable1 table {
+    width: 100%;                 /* Table takes the full width of the div */
+    border-collapse: collapse;   /* Remove gaps between table cells */
+}
+
+/* Styling for table cells */
+#mytable1 td {
+    padding: 10px;               /* Add padding to cells */
+    font-size: 16px;             /* Increase font size */
+}
+
+/* Styling for input fields and select dropdown */
+#mytable1 input.A, #mytable1 select.A {
+    width: 90%;                 /* Inputs take the full width of the cell */
+    padding: 8px;                /* Add padding inside the input */
+    font-size: 14px;             /* Font size inside the input */
+    border: 1px solid #ccc;      /* Light border around input */
+    border-radius: 4px;          /* Rounded corners for inputs */
+}
+
+/* Styling for the submit button */
+#mytable1 input.B {
+    background-color: #4CAF50;   /* Green background for the button */
+    color: white;                /* White text */
+    border: none;                /* Remove the border */
+    padding: 10px 20px;          /* Add padding */
+    font-size: 16px;             /* Font size for the button text */
+    cursor: pointer;             /* Change cursor to pointer on hover */
+    border-radius: 5px;          /* Rounded button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for submit button */
+#mytable1 input.B:hover {
+    background-color:orange;   /* Darker green on hover */
+}
+
+#login-container {
+    background-color: white;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+    
+}
+.input-container input {
+   
+    padding-right: 40px; /* Space for the icon taki koi icon overide nahi ho likhne se  */
+  
+}
+.icon {
+    position: absolute;
+    padding: 10px;
+    right:5px;
+    min-width: 40px;
+    margin:10px 10px;
+
+    color: blue;
+    font-size:25px;
+}
+
+/*showALL*/
+ #mytable2 {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+      #showdata {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border:2px solid black;
+        }
+        #showdata th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+       #showdata th {
+            background-color:lightskyblue;
+            color:yellow;
+            border-bottom:1px solid black;
+        }
+        #showdata tr:hover {
+            background-color: #f1f1f1;
+        }    

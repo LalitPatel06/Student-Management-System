@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="abc3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert Library -->
+    <style>
+        /* Ensure table spans full width */
+        table {
+            width: 100%;
+            margin:0px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 12px;
+            /*vertical-align: top;*/
+        }
+
+         /*Apply styles for full-width input fields*/ 
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="date"], select {
+       width: 100%;  /*Make fields take up full width */
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        
+        /* Hide error messages by default */
+        .error-message {
+            color: red;
+            justify-content:center;
+            display: none;
+        }
+
+        /* Role-specific sections */
+        #adminFields, #teacherFields, #studentFields {
+            display: none;
+            width: 100%;
+        }
+          
+/*         Change border color when an input field or select box is clicked 
+        input[type="text"]:focus, 
+        input[type="password"]:focus, 
+        input[type="email"]:focus, 
+        input[type="tel"]:focus, 
+        input[type="date"]:focus, 
+        select:focus {
+            border: 2px solid blue;  Change border color 
+            outline: none;  Remove the default outline 
+        }*/
+    </style>
+
+    <script>
+    // Function to show/hide fields based on the selected role
+    function displayFields() {
+        var role = document.getElementById("role").value;
+
+        // Hide all role-specific fields initially
+        document.getElementById("adminFields").style.display = "none";
+        document.getElementById("teacherFields").style.display = "none";
+        document.getElementById("studentFields").style.display = "none";
+
+        // Remove required attributes from all password fields
+        document.getElementById("adminPassword").removeAttribute("required");
+        document.getElementById("adminConfirmPassword").removeAttribute("required");
+        document.getElementById("teacherPassword").removeAttribute("required");
+        document.getElementById("teacherConfirmPassword").removeAttribute("required");
+        document.getElementById("studentPassword").removeAttribute("required");
+        document.getElementById("studentConfirmPassword").removeAttribute("required");
+
+        // Display the fields relevant to the selected role and set required attributes
+        if (role === "Admin") {
+            document.getElementById("adminFields").style.display = "table-row-group";
+            document.getElementById("adminPassword").setAttribute("required", "required");
+            document.getElementById("adminConfirmPassword").setAttribute("required", "required");
+        } else if (role === "Teacher") {
+            document.getElementById("teacherFields").style.display = "table-row-group";
+            document.getElementById("teacherPassword").setAttribute("required", "required");
+            document.getElementById("teacherConfirmPassword").setAttribute("required", "required");
+        } else if (role === "Student") {
+            document.getElementById("studentFields").style.display = "table-row-group";
+            document.getElementById("studentPassword").setAttribute("required", "required");
+            document.getElementById("studentConfirmPassword").setAttribute("required", "required");
+        }
+    }
+
+    // Function to check if the passwords match based on the role
+    function validatePasswords(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var role = document.getElementById("role").value;
+    var password = "", confirmPassword = "", errorMessage = "";
+
+    // If no role is selected, prompt the user
+    if (!role) {
+        alert("Please select a role.");
+        return false; // Prevent form submission
+    }
+
+    // Check password fields for each role
+    if (role === "Admin") {
+        password = document.getElementById("adminPassword").value;
+        confirmPassword = document.getElementById("adminConfirmPassword").value;
+        errorMessage = document.getElementById("adminErrorMessage");
+    } else if (role === "Teacher") {
+        password = document.getElementById("teacherPassword").value;
+        confirmPassword = document.getElementById("teacherConfirmPassword").value;
+        errorMessage = document.getElementById("teacherErrorMessage");
+    } else if (role === "Student") {
+        password = document.getElementById("studentPassword").value;
+        confirmPassword = document.getElementById("studentConfirmPassword").value;
+        errorMessage = document.getElementById("studentErrorMessage");
+    }
+
+    // Validate passwords
+    if (password !== confirmPassword) {
+        errorMessage.style.display = "block"; // Show error message
+        return false; // Prevent form submission
+    } else {
+        errorMessage.style.display = "none"; // Hide error message
+
+        // SweetAlert success message
+        Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful!',
+            text: 'Your account has been created successfully.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // Submit the form after SweetAlert confirmation
+            document.querySelector('form').submit();
+        });
+
+        return true;
+    }
+}
+
+    
+    </script>
+</head>
+<body>
+    <div id="mymenu">
+        <ul>
+            <li class="left-item">Student Management System</li>
+            <li>Home</li>
+            <li><a href="Login.jsp">Login</a></li>
+            <li><a href="r1.html">Registration</a></li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </div>
+
+    <div id="mytable">
+        <center>
+            <form action="Registration" method="post" onsubmit="return validatePasswords(event)">
+                <table cellpadding="12">
+                    <th colspan="2"><h1>Registration Form</h1></th>
+                    <tr>
+                        <td>Enter Username</td>
+                        <td><input type="text" name="username" placeholder="Enter Username" required minlength="3"></td>
+                    </tr>
+                    <tr>
+                        <td>Enter Email</td>
+                        <td><input type="email" name="email" placeholder="Enter Email"  required></td>
+                    </tr>
+                    <tr>
+                        <td>Enter Contact No.</td>
+                        <td><input type="tel" name="contact" placeholder="Enter Contact No."  required pattern="\d{10}" title="Please enter a 10-digit mobile number"></td>
+                    </tr>
+                    <tr>
+                        <td>Select Role</td>
+                        <td>
+                            <select name="role" id="role"  onchange="displayFields()" required>
+                                <option value="">Select Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Student">Student</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <!-- Admin specific fields -->
+<tbody id="adminFields">
+    <tr>
+        <td>Enter Password</td>
+        <td><input type="password" name="password" id="adminPassword" placeholder="Enter Password"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" title="Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"></td>
+    </tr>
+    <tr>
+        <td>Confirm Password</td>
+        <td><input type="password" name="confirmPassword" id="adminConfirmPassword" placeholder="Confirm Password"  required></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <span class="error-message" id="adminErrorMessage">Passwords do not match!</span>
+        </td>
+    </tr>
+</tbody>
+
+<!-- Teacher specific fields -->
+<tbody id="teacherFields">
+    <tr>
+        <td>Enter Employee ID</td>
+        <td><input type="text" name="employeeId" placeholder="Enter Employee ID" ></td>
+    </tr>
+    <tr>
+        <td>Enter Department</td>
+        <td><input type="text" name="department" placeholder="Enter Department" ></td>
+    </tr>
+    <tr>
+        <td>Enter Subject Taught</td>
+        <td><input type="text" name="subjectTaught" placeholder="Enter Subject Taught" ></td>
+    </tr>
+    <tr>
+        <td>Enter Password</td>
+        <td><input type="password" name="passwordTeacher" id="teacherPassword" placeholder="Enter Password"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" title="Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"></td>
+    </tr>
+    <tr>
+        <td>Confirm Password</td>
+        <td><input type="password" name="confirmPasswordTeacher" id="teacherConfirmPassword" placeholder="Confirm Password"  required></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <span class="error-message" id="teacherErrorMessage">Passwords do not match!</span>
+        </td>
+    </tr>
+</tbody>
+
+<!-- Student specific fields -->
+<tbody id="studentFields">
+   
+    <tr>
+        <td>Enter Date of Birth</td>
+        <td><input type="date" name="dob" ></td>
+    </tr>
+    <tr>
+        <td>Enter Password</td>
+        <td><input type="password" name="passwordStudent" id="studentPassword" placeholder="Enter Password"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" title="Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"></td>
+    </tr>
+    <tr>
+        <td>Confirm Password</td>
+        <td><input type="password" name="confirmPasswordStudent" id="studentConfirmPassword" placeholder="Confirm Password"  required></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <span class="error-message" id="studentErrorMessage">Passwords do not match!</span>
+        </td>
+    </tr>
+</tbody>
+
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" value="Register" class="B">
+                        </td>
+                    </tr>
+                    <tr>
+    <td colspan="2" style="text-align: center;">
+        <a href="Login.jsp" style="color: blue; text-decoration: none; font-weight: normal;">Already have an account? Login here</a>
+    </td>
+</tr>
+
+
+                </table>
+            </form>
+        </center>
+    </div>
+    
+     <script>
+        // Function to display error message
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get('error');
+
+            if (errorMessage) {
+                alert("Error: " + errorMessage);
+        }
+          // Remove the 'status' parameter from the URL
+    window.history.replaceState(null, null, window.location.pathname);
+            }
+    </script>
+</body>
+</html>
