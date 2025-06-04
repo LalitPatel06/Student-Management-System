@@ -34,6 +34,37 @@ It allows for the management of student records, role-based access, and basic **
 - **Version Control**: Git & GitHub  
 
 ---
+## 📸 Screenshots
+
+###  Registration Page
+![Screenshot 2024-11-09 135219](https://github.com/user-attachments/assets/01afd06e-d9f4-4a95-8018-1a58c21ed9dd)
+
+### 🔐 Login Page
+![Screenshot 2024-11-09 135319](https://github.com/user-attachments/assets/b9374a9a-8385-45fd-9bb4-68cd46db4618)
+
+### 🏠 Admin Dashboard
+![Admin Dashboard](https://github.com/user-attachments/assets/63d6e49d-a4f5-48a1-898d-a687af48e466)
+
+### Add Students Page
+![Add Students](https://github.com/user-attachments/assets/354c9c97-c1c8-4fbb-9f9e-5271d7e9085e)
+
+### Search Student Data and Marks Page
+![Search Student Data and Marks](https://github.com/user-attachments/assets/d7a51c35-c689-4823-8274-03e1c6e832b3)
+
+### Update Student Marks Page
+![Update Student Marks](https://github.com/user-attachments/assets/e8a8356b-b988-4cc4-a4a6-e69b48c2ccbf)
+
+### 📅 Teacher Dashboard
+![Teacher Dashboard](https://github.com/user-attachments/assets/462c8d28-807a-40cc-8936-a22d65d95f37)
+
+### Add Students Marks Page
+![Add Students Marks](https://github.com/user-attachments/assets/13a877f0-0444-431b-ab2c-93133b7b3811)
+
+### 📅 Student Dashboard
+![Student Dashboard](https://github.com/user-attachments/assets/12f3f0a1-baed-4425-953a-97ea11461bdd)
+
+
+
 
 ## 🚀 Key Highlights
 
